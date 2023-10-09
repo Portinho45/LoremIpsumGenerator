@@ -7,9 +7,10 @@ import arrWords from './words';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'Generador de Lorem Ipsum';
+  title = 'Lorem Ipsum Generator';
   count = 1;
   paragraphs: string[] = [];
+  Errortext = '';
 
   ngOnInit() {
     this.generate();
@@ -22,12 +23,18 @@ export class AppComponent implements OnInit {
   };
 
   generate = () => {
+    this.Errortext = '';
     this.paragraphs = [];
-    for (let i = 0; i < this.count; i++) {
-      const paragraph = this.generateParagraph();
-      this.paragraphs.push(paragraph);
+    if (this.count >= 0 && this.count <= 1000) {
+      for (let i = 0; i < this.count; i++) {
+        const paragraph = this.generateParagraph();
+        this.paragraphs.push(paragraph);
+      }
+    } else {
+      this.Errortext = 'Number out of valid range | Valid range 0-1000';
     }
   };
+
 
   generateParagraph = () => {
     const paragraphLength = Math.floor(Math.random() * 100) + 30;

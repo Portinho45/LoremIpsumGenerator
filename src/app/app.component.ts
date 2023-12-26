@@ -35,13 +35,22 @@ export class AppComponent implements OnInit {
     }
   };
 
-
   generateParagraph = () => {
-    const paragraphLength = Math.floor(Math.random() * 100) + 30;
-    const paragraphWords = arrWords.slice(0, paragraphLength).join(' ');
+    const paragraphLength = Math.floor(Math.random() * 80) + 20;
+    const shuffledWords = this.shuffleArray([...arrWords]);
+    const paragraphWords = shuffledWords.slice(0, paragraphLength).join(' ');
     return (
       paragraphWords.charAt(0).toUpperCase() + paragraphWords.slice(1) + '.'
     );
+  };
+
+  shuffleArray = (array: string[]) => {
+    // Fisher-Yates shuffle algorithm
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   };
 
   generateRandom = () => {
